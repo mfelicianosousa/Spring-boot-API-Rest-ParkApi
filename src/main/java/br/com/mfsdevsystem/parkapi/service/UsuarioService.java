@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.mfsdevsystem.parkapi.entity.Usuario;
 import br.com.mfsdevsystem.parkapi.exception.EntityNotFoundException;
+import br.com.mfsdevsystem.parkapi.exception.PasswordInvalidException;
 import br.com.mfsdevsystem.parkapi.exception.UsernameUniqueViolationException;
 import br.com.mfsdevsystem.parkapi.repository.UsuarioRepository;
 
@@ -53,15 +54,14 @@ public class UsuarioService {
 		
 		if (!newPassword.equals(confirmPassword)) {
 			
-			throw new RuntimeException("Nova senha não confere com a confirmação de senha.");	
+			throw new PasswordInvalidException("Nova senha não confere com a confirmação de senha.");	
 		}
 		
 		Usuario user = findById(id);
 		
 		if (!user.getPassword().equals(currentPassword)){
 			
-			throw new RuntimeException("Sua senha não confere.");
-			
+			throw new PasswordInvalidException("Sua senha não confere.");		
 		}
 		
 		user.setPassword(newPassword);
@@ -74,6 +74,4 @@ public class UsuarioService {
 		return usuarioRepository.findAll();
 	}
 	
-	
-
 }

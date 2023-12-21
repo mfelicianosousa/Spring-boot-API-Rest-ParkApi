@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.com.mfsdevsystem.parkapi.exception.EntityNotFoundException;
+import br.com.mfsdevsystem.parkapi.exception.PasswordInvalidException;
 import br.com.mfsdevsystem.parkapi.exception.UsernameUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -19,6 +20,16 @@ import jakarta.servlet.http.HttpServletRequest;
 public class ApiExceptionHandler {
 	
 	private static Logger logger = LoggerFactory.getLogger( ApiExceptionHandler.class);
+	
+	
+	@ExceptionHandler(PasswordInvalidException.class)
+    public ResponseEntity<ErrorMessage> passwordInvalidException(RuntimeException ex, HttpServletRequest request) {
+		logger.info("Api ExceptionHandler Error : ", ex);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, ex.getMessage()));
+    }
 	
 	@ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorMessage> entityNotFoundException(RuntimeException ex, HttpServletRequest request) {
