@@ -96,8 +96,11 @@ public class UsuarioController {
 					    content = @Content(mediaType="application/json",
 					    schema = @Schema( implementation = ErrorMessage.class ))),
 					@ApiResponse( responseCode = "404", description = "Recurso não encontrado",
-				    content = @Content(mediaType="application/json",
-				    schema = @Schema( implementation = ErrorMessage.class )))
+				    	content = @Content(mediaType="application/json",
+				    	schema = @Schema( implementation = ErrorMessage.class ))),
+					@ApiResponse( responseCode = "422", description = "Campos inválidos ou mal formatados",
+				    	content = @Content(mediaType="application/json",
+				    	schema = @Schema( implementation = ErrorMessage.class )))
 			}		
 	)
 	@PatchMapping("/{id}")
@@ -107,7 +110,7 @@ public class UsuarioController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@Operation( summary="Recuperar/listar todos os usuários", description="Listar todos os usuário",
+	@Operation( summary="Listar todos os usuários", description="Listar todos os usuário",
 			responses = {
 					@ApiResponse( responseCode = "200", description ="Listagem recuperada com sucesso",
 					    content = @Content(mediaType="application/json",
