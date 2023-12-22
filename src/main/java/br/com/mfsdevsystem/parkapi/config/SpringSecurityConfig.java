@@ -1,5 +1,7 @@
 package br.com.mfsdevsystem.parkapi.config;
 
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,15 +14,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import br.com.mfsdevsystem.parkapi.jwt.JwtAuthorizationFilter;
+import br.com.mfsdevsystem.parkapi.web.controller.JwtAuthenticationEntryPoint;
 
 @EnableMethodSecurity
 @EnableWebMvc
 @Configuration
 public class SpringSecurityConfig {
+	
+	private static final String [] DOCUMENTATION_OPENAPI = {
+			"/docs/index.html",
+			"/docs-park.html","/docs-park/**",
+			"/v3/api-docs/**",
+			"/swagger-ui-custom.html","/swagger-ui.html","/swagger-ui/**",
+			"/**.html","/webjars/**","/configuration/**","/swagger-resources/**"
+	};
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http)  throws Exception {
@@ -31,14 +41,21 @@ public class SpringSecurityConfig {
 				    .authorizeHttpRequests(auth -> auth
 				            .requestMatchers(
 				                antMatcher(HttpMethod.POST, "/api/v1/usuarios"),
-				                antMatcher(HttpMethod.POST, "/api/v1/auth")
+				                antMatcher(HttpMethod.POST, "/api/v1/auth"),
+				                antMatcher("/docs-park.html"),
+				                antMatcher("/docs-park/**"),
+				                antMatcher("/swagger-ui.html"),
+				                antMatcher("/swagger-ui/**"),
+				                antMatcher("/webjars/**")
 				        ).permitAll()
 					         .anyRequest().authenticated()
 					 ).sessionManagement(
 							 session -> session.sessionCreationPolicy( SessionCreationPolicy.STATELESS )
 					).addFilterBefore(
 							jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class
-					 ).build();
+					).exceptionHandling( ex -> ex
+							.authenticationEntryPoint(new JwtAuthenticationEntryPoint())	 
+					).build();
 	 }
 	
 	@Bean

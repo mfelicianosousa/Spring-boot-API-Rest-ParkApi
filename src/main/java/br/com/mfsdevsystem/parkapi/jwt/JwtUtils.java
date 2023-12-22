@@ -30,7 +30,7 @@ public class JwtUtils {
 	
 	public static final Long EXPIRE_HOURS  = Long.valueOf(0);
 	
-	public static final Long EXPIRE_MINUTES = Long.valueOf(2);
+	public static final Long EXPIRE_MINUTES = Long.valueOf(30);
 	
 	private JwtUtils() {
 		

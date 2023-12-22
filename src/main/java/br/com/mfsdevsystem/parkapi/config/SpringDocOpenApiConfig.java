@@ -3,10 +3,12 @@ package br.com.mfsdevsystem.parkapi.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 
 @Configuration
 public class SpringDocOpenApiConfig {
@@ -15,6 +17,7 @@ public class SpringDocOpenApiConfig {
 	public OpenAPI openAPI() {
 		
 		return new OpenAPI()
+				.components(new Components().addSecuritySchemes("security", securityScheme()))
 				.info(
 						new Info()
 						.title("REST API - Spring Park")
@@ -24,6 +27,15 @@ public class SpringDocOpenApiConfig {
 						.contact(new Contact().name("Marcelino Feliciano de Sousa").email("marcelino.feliciano@outlook.com"))
 						
 				);
-		
+	}
+	
+	private SecurityScheme securityScheme() {
+		return new SecurityScheme()
+				.description("Insira um bearer token valido para prosseguir")
+				.type(SecurityScheme.Type.HTTP)
+				.in(SecurityScheme.In.HEADER)
+				.scheme("bearer")
+				.bearerFormat("JWT")
+				.name("security");		
 	}
 }
