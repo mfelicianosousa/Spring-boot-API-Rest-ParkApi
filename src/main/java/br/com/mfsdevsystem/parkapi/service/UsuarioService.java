@@ -3,6 +3,8 @@ package br.com.mfsdevsystem.parkapi.service;
 import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,16 +18,19 @@ import br.com.mfsdevsystem.parkapi.repository.UsuarioRepository;
 public class UsuarioService { 
 	
 	private final UsuarioRepository usuarioRepository ;
+	private final PasswordEncoder passwordEncoder;
 
-	public UsuarioService( UsuarioRepository usuarioRepository) {
+	public UsuarioService( UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
 		this.usuarioRepository = usuarioRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Transactional
 	public Usuario salvar(Usuario usuario) {
 			
 		try {
-			 return usuarioRepository.save(usuario);
+			 usuario.setPassword( passwordEncoder.encode( usuario.getPassword() ) );
+			 return usuarioRepository.save( usuario );
 		} catch ( DataIntegrityViolationException ex ) {
 			throw new UsernameUniqueViolationException( String.format("Username {%s} já cadastrado, ",usuario.getUsername()));
 		}
@@ -50,28 +55,42 @@ public class UsuarioService {
 	}
 
 	@Transactional
-	public Usuario updatePassword(Long id, String currentPassword, String newPassword, String confirmPassword) {
+	public Usuario updatePassword( Long id, String currentPassword, String newPassword, String confirmPassword) {
 		
-		if (!newPassword.equals(confirmPassword)) {
+		if ( !newPassword.equals( confirmPassword ) ) {
 			
 			throw new PasswordInvalidException("Nova senha não confere com a confirmação de senha.");	
 		}
 		
-		Usuario user = findById(id);
+		Usuario usuario = findById( id ) ;
 		
-		if (!user.getPassword().equals(currentPassword)){
-			
+		//if (!user.getPassword().equals(currentPassword)){
+		if ( !passwordEncoder.matches( currentPassword, usuario.getPassword())) {
+		
 			throw new PasswordInvalidException("Sua senha não confere.");		
 		}
 		
-		user.setPassword(newPassword);
+		usuario.setPassword( passwordEncoder.encode( newPassword ));
 		
-		return user;
+		return usuario;
 	}
 
 	@Transactional(readOnly = true)
 	public List<Usuario> searchAll() {
 		return usuarioRepository.findAll();
+	}
+
+	@Transactional(readOnly = true)
+	public Usuario buscarPorUsername(String username) {
+		
+		return usuarioRepository.findByUsername( username ).orElseThrow(
+                () -> new EntityNotFoundException( String.format( "Usuário com %s não encontrado", username)));
+	}
+
+	@Transactional(readOnly = true)
+	public Usuario.Role buscarRolePorUsername(String username) {
+		
+		return usuarioRepository.findRoleByUsername( username) ;
 	}
 	
 }

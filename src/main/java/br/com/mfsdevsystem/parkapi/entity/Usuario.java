@@ -35,8 +35,10 @@ public class Usuario implements Serializable{
 	//@Column(name = "role", nullable = false, length=25)
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="role", nullable = false, length = 25)
-	private UserRole role = UserRole.ROLE_CLIENT;
+	//@Column(name="role", nullable = false, length = 25)
+	//private UserRole role = UserRole.ROLE_CLIENT;
+	@Column(name = "role", nullable = false, length = 25)
+	 private Role role = Role.ROLE_CLIENTE;
 	
 	//private Role role;
 	
@@ -51,6 +53,10 @@ public class Usuario implements Serializable{
 	
 	@Column(name = "modificado_por")
 	private String modificadoPor;
+	
+	public enum Role {
+        ROLE_ADMIN, ROLE_CLIENTE
+    }
 	
 	/*
 	public enum Role{
@@ -72,7 +78,7 @@ public class Usuario implements Serializable{
 	public Usuario() {
 	}
 	
-	public Usuario(Long id, String username, String password, UserRole role, LocalDateTime dataCriacao,
+	public Usuario(Long id, String username, String password, Role role, LocalDateTime dataCriacao,
 			LocalDateTime dataModificacao, String criadoPor, String modificadoPor) {
 		this.id = id;
 		this.username = username;
@@ -83,9 +89,6 @@ public class Usuario implements Serializable{
 		this.criadoPor = criadoPor;
 		this.modificadoPor = modificadoPor;
 	}
-
-
-
 
 	public Long getId() {
 		return id;
@@ -116,16 +119,13 @@ public class Usuario implements Serializable{
 		this.password = password;
 	}
 
-
-	public UserRole getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-
-	public void setRole(UserRole role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
-
 
 	public LocalDateTime getDataCriacao() {
 		return dataCriacao;
