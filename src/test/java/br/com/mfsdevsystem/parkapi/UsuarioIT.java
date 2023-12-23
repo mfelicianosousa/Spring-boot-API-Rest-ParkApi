@@ -282,7 +282,8 @@ public class UsuarioIT {
 	public void editarSenha_ComCamposInvalidos_RetornarErrorMessageComStatus422() {
 		ErrorMessage responseBody = testClient
 		   .patch()
-		   .uri("/api/v1/usuarios/100")
+		   .uri("/api/v1/usuarios/4")
+		   .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@gmail.com", "123456"))
 		   .contentType(MediaType.APPLICATION_JSON)
 		   .bodyValue( new UsuarioPasswordDto("", "",""))
 		   .exchange()
@@ -295,7 +296,8 @@ public class UsuarioIT {
 		
 		responseBody = testClient
 				   .patch()
-				   .uri("/api/v1/usuarios/100")
+				   .uri("/api/v1/usuarios/4")
+				   .headers(JwtAuthentication.getHeaderAuthorization(testClient, "an@gmail.com", "123456"))
 				   .contentType(MediaType.APPLICATION_JSON)
 				   .bodyValue( new UsuarioPasswordDto("12345", "12345","12345"))
 				   .exchange()
@@ -308,7 +310,8 @@ public class UsuarioIT {
 		
 		responseBody = testClient
 				   .patch()
-				   .uri("/api/v1/usuarios/100")
+				   .uri("/api/v1/usuarios/4")
+				   .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@gmail.com", "123456"))
 				   .contentType(MediaType.APPLICATION_JSON)
 				   .bodyValue( new UsuarioPasswordDto("123456789", "123456789","123456789"))
 				   .exchange()
@@ -325,7 +328,8 @@ public class UsuarioIT {
 	public void editarSenha_ComSenhasInvalidass_RetornarErrorMessageComStatus400() {
 		ErrorMessage responseBody = testClient
 		   .patch()
-		   .uri("/api/v1/usuarios/100")
+		   .uri("/api/v1/usuarios/4")
+		   .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@gmail.com", "123456"))
 		   .contentType(MediaType.APPLICATION_JSON)
 		   .bodyValue( new UsuarioPasswordDto("123456", "123456","000000"))
 		   .exchange()
@@ -338,7 +342,8 @@ public class UsuarioIT {
 		
 		responseBody = testClient
 				   .patch()
-				   .uri("/api/v1/usuarios/100")
+				   .uri("/api/v1/usuarios/4")
+				   .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@gmail.com", "123456"))
 				   .contentType(MediaType.APPLICATION_JSON)
 				   .bodyValue( new UsuarioPasswordDto("000000", "123456","123456"))
 				   .exchange()
@@ -356,6 +361,7 @@ public class UsuarioIT {
         List<UsuarioResponseDto> responseBody = testClient
                 .get()
                 .uri("/api/v1/usuarios")
+         	    .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@gmail.com", "123456"))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(UsuarioResponseDto.class)
