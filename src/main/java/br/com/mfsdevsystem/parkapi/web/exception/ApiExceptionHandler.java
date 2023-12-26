@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import br.com.mfsdevsystem.parkapi.exception.CodigoUniqueViolationException;
 import br.com.mfsdevsystem.parkapi.exception.EntityNotFoundException;
 import br.com.mfsdevsystem.parkapi.exception.PasswordInvalidException;
 import br.com.mfsdevsystem.parkapi.exception.UsernameUniqueViolationException;
@@ -21,6 +22,8 @@ import jakarta.servlet.http.HttpServletRequest;
 public class ApiExceptionHandler {
 	
 	private static Logger logger = LoggerFactory.getLogger( ApiExceptionHandler.class);
+	
+	
 	
 	@ExceptionHandler( AccessDeniedException.class)
     public ResponseEntity<ErrorMessage> accessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
@@ -65,8 +68,8 @@ public class ApiExceptionHandler {
 						"Campo(s) inválido(s)", result ));
 	}
 		
-	@ExceptionHandler(UsernameUniqueViolationException.class)
-	public ResponseEntity<ErrorMessage> UniqueViolationException(
+	@ExceptionHandler({ UsernameUniqueViolationException.class, CpfUniqueViolationException.class, CodigoUniqueViolationException.class})
+	public ResponseEntity<ErrorMessage> uniqueViolationException(
 			RuntimeException ex,
 			HttpServletRequest request) {
 		

@@ -28,7 +28,7 @@ public class UsuarioIT {
 		   .post()
 		   .uri("/api/v1/usuarios")
 		   .contentType(MediaType.APPLICATION_JSON)
-		   .bodyValue( new UsuarioCreatedDto("tody@gmail.com", "123456"))
+		   .bodyValue( new UsuarioCreatedDto("toby@gmail.com", "123456"))
 		   .exchange()
 		   .expectStatus().isCreated()
 		   .expectBody( UsuarioResponseDto.class)

@@ -94,7 +94,7 @@ public class AuthenticationIT {
 	}
 	
 	@Test
-	public void autenticar_ComPassword_RetornarErrorMessageStatus422() {
+	public void autenticar_ComPasswordInvalido_RetornarErrorMessageStatus422() {
 			ErrorMessage responseBody = testClient
 			  .post()
 			  .uri("/api/v1/auth")
