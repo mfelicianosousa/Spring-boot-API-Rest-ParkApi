@@ -17,7 +17,6 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -42,8 +41,8 @@ public class ClienteVaga  implements  Serializable{
 	@Column( name = "marca", nullable = false,  length=40)
 	private String marca;
 	
-	@Column( name = "modelo", nullable = false,  length=40)
-	private String model;
+	@Column( name = "modelo", nullable = false, length=40)
+	private String modelo;
 	
 	@Column( name = "cor", nullable = false,  length=40)
 	private String cor;
@@ -87,10 +86,8 @@ public class ClienteVaga  implements  Serializable{
 	
 	public ClienteVaga() {
 	}
-	
-	
 
-	public ClienteVaga(Long id, String recibo, String placa, String marca, String model, String cor,
+	public ClienteVaga(Long id, String recibo, String placa, String marca, String modelo, String cor,
 			LocalDateTime dataEntrada, LocalDateTime dataSaida, BigDecimal valor, BigDecimal desconto, Cliente cliente,
 			Vaga vaga, LocalDateTime dataCriacao, LocalDateTime dataModificacao, String criadoPor,
 			String modificadoPor) {
@@ -98,7 +95,7 @@ public class ClienteVaga  implements  Serializable{
 		this.recibo = recibo;
 		this.placa = placa;
 		this.marca = marca;
-		this.model = model;
+		this.modelo = modelo;
 		this.cor = cor;
 		this.dataEntrada = dataEntrada;
 		this.dataSaida = dataSaida;
@@ -111,8 +108,6 @@ public class ClienteVaga  implements  Serializable{
 		this.criadoPor = criadoPor;
 		this.modificadoPor = modificadoPor;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -146,12 +141,12 @@ public class ClienteVaga  implements  Serializable{
 		this.marca = marca;
 	}
 
-	public String getModel() {
-		return model;
+	public String getModelo() {
+		return modelo;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
 	}
 
 	public String getCor() {

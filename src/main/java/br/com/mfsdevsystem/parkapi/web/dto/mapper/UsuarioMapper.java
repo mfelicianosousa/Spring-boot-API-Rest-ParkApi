@@ -7,12 +7,12 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
 import br.com.mfsdevsystem.parkapi.entity.Usuario;
-import br.com.mfsdevsystem.parkapi.web.dto.UsuarioCreatedDto;
+import br.com.mfsdevsystem.parkapi.web.dto.UsuarioCreateDto;
 import br.com.mfsdevsystem.parkapi.web.dto.UsuarioResponseDto;
 
 public class UsuarioMapper {
 
-	public static Usuario toUsuario(UsuarioCreatedDto usuarioCreatedDto) {
+	public static Usuario toUsuario(UsuarioCreateDto usuarioCreatedDto) {
 		return new ModelMapper().map( usuarioCreatedDto, Usuario.class ) ;
 	}
 	

@@ -17,8 +17,7 @@ public class VagaCreateDto {
 	public VagaCreateDto() {	
 	}
 	
-	public VagaCreateDto(@NotBlank @Size(min = 4, max = 4) String codigo,
-			@NotBlank @Pattern(regexp = "LIVRE|OCUPADA") String status) {
+	public VagaCreateDto(String codigo, String status) {
 		this.codigo = codigo;
 		this.status = status;
 	}

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class UsuarioCreatedDto {
+public class UsuarioCreateDto {
 
 	@NotBlank
 	@Email(regexp= "^[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$", message = "Formato do email inválido.")
@@ -16,11 +16,11 @@ public class UsuarioCreatedDto {
 	@Size(min = 6, max = 8)
 	private String password;
 	
-	public UsuarioCreatedDto() {
+	public UsuarioCreateDto() {
 		
 	}
 
-	public UsuarioCreatedDto(String username, String password) {
+	public UsuarioCreateDto(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
@@ -54,7 +54,7 @@ public class UsuarioCreatedDto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UsuarioCreatedDto other = (UsuarioCreatedDto) obj;
+		UsuarioCreateDto other = (UsuarioCreateDto) obj;
 		return Objects.equals(username, other.username);
 	}
 	

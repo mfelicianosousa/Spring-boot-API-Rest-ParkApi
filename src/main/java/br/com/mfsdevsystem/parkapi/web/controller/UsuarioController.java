@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.mfsdevsystem.parkapi.entity.Usuario;
 import br.com.mfsdevsystem.parkapi.service.UsuarioService;
-import br.com.mfsdevsystem.parkapi.web.dto.UsuarioCreatedDto;
+import br.com.mfsdevsystem.parkapi.web.dto.UsuarioCreateDto;
 import br.com.mfsdevsystem.parkapi.web.dto.UsuarioPasswordDto;
 import br.com.mfsdevsystem.parkapi.web.dto.UsuarioResponseDto;
 import br.com.mfsdevsystem.parkapi.web.dto.mapper.UsuarioMapper;
@@ -55,7 +55,7 @@ public class UsuarioController {
 			}		
 	)
 	@PostMapping
-	public ResponseEntity<UsuarioResponseDto> created(@Valid @RequestBody UsuarioCreatedDto usuarioCreatedDto){
+	public ResponseEntity<UsuarioResponseDto> created(@Valid @RequestBody UsuarioCreateDto usuarioCreatedDto){
 		
 		Usuario user = usuarioService.salvar( UsuarioMapper.toUsuario( usuarioCreatedDto ));
 		return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));

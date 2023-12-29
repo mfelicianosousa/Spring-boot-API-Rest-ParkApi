@@ -12,6 +12,7 @@ import br.com.mfsdevsystem.parkapi.repository.VagaRepository;
 @Service
 public class VagaService {
 
+
 	private final VagaRepository vagaRepository;
 	
 	public VagaService(VagaRepository vagaRepository) {
@@ -37,6 +38,14 @@ public class VagaService {
 		return vagaRepository.findByCodigo( codigo ).orElseThrow(
 				() -> new EntityNotFoundException( 
 						String.format("Vaga com código '%s' não foi encontrada", codigo ))
+			);
+	}
+
+	public Vaga searchForFreeVacancy() {
+	
+		return vagaRepository.findFirstByStatus( Vaga.StatusVaga.LIVRE ).orElseThrow(
+				() -> new EntityNotFoundException( 
+						String.format("Nenhuma vaga livre foi encontrada" ))
 			);
 	}
 }

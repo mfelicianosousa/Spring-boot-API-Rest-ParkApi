@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import br.com.mfsdevsystem.parkapi.web.dto.UsuarioCreatedDto;
+import br.com.mfsdevsystem.parkapi.web.dto.UsuarioCreateDto;
 import br.com.mfsdevsystem.parkapi.web.dto.UsuarioResponseDto;
 import br.com.mfsdevsystem.parkapi.web.dto.VagaCreateDto;
 import br.com.mfsdevsystem.parkapi.web.exception.ErrorMessage;

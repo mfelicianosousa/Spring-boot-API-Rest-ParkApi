@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import br.com.mfsdevsystem.parkapi.web.dto.UsuarioCreatedDto;
+import br.com.mfsdevsystem.parkapi.web.dto.UsuarioCreateDto;
 import br.com.mfsdevsystem.parkapi.web.dto.UsuarioPasswordDto;
 import br.com.mfsdevsystem.parkapi.web.dto.UsuarioResponseDto;
 import br.com.mfsdevsystem.parkapi.web.exception.ErrorMessage;
@@ -28,7 +28,7 @@ public class UsuarioIT {
 		   .post()
 		   .uri("/api/v1/usuarios")
 		   .contentType(MediaType.APPLICATION_JSON)
-		   .bodyValue( new UsuarioCreatedDto("toby@gmail.com", "123456"))
+		   .bodyValue( new UsuarioCreateDto("toby@gmail.com", "123456"))
 		   .exchange()
 		   .expectStatus().isCreated()
 		   .expectBody( UsuarioResponseDto.class)
@@ -47,7 +47,7 @@ public class UsuarioIT {
 		   .post()
 		   .uri("/api/v1/usuarios")
 		   .contentType(MediaType.APPLICATION_JSON)
-		   .bodyValue( new UsuarioCreatedDto("", "123456"))
+		   .bodyValue( new UsuarioCreateDto("", "123456"))
 		   .exchange()
 		   .expectStatus().isEqualTo(422)
 		   .expectBody( ErrorMessage.class)
@@ -60,7 +60,7 @@ public class UsuarioIT {
 				   .post()
 				   .uri("/api/v1/usuarios")
 				   .contentType(MediaType.APPLICATION_JSON)
-				   .bodyValue( new UsuarioCreatedDto("tody@", "123456"))
+				   .bodyValue( new UsuarioCreateDto("tody@", "123456"))
 				   .exchange()
 				   .expectStatus().isEqualTo(422)
 				   .expectBody( ErrorMessage.class)
@@ -73,7 +73,7 @@ public class UsuarioIT {
 				   .post()
 				   .uri("/api/v1/usuarios")
 				   .contentType(MediaType.APPLICATION_JSON)
-				   .bodyValue( new UsuarioCreatedDto("tody@email", "123456"))
+				   .bodyValue( new UsuarioCreateDto("tody@email", "123456"))
 				   .exchange()
 				   .expectStatus().isEqualTo(422)
 				   .expectBody( ErrorMessage.class)
@@ -90,7 +90,7 @@ public class UsuarioIT {
 		   .post()
 		   .uri("/api/v1/usuarios")
 		   .contentType(MediaType.APPLICATION_JSON)
-		   .bodyValue( new UsuarioCreatedDto("tody@gmail.com", "")) // password null
+		   .bodyValue( new UsuarioCreateDto("tody@gmail.com", "")) // password null
 		   .exchange()
 		   .expectStatus().isEqualTo(422)
 		   .expectBody( ErrorMessage.class)
@@ -103,7 +103,7 @@ public class UsuarioIT {
 				   .post()
 				   .uri("/api/v1/usuarios")
 				   .contentType(MediaType.APPLICATION_JSON)
-				   .bodyValue( new UsuarioCreatedDto("tody@gmail.com", "1234")) // password < 6 caracteres
+				   .bodyValue( new UsuarioCreateDto("tody@gmail.com", "1234")) // password < 6 caracteres
 				   .exchange()
 				   .expectStatus().isEqualTo(422)
 				   .expectBody( ErrorMessage.class)
@@ -116,7 +116,7 @@ public class UsuarioIT {
 				   .post()
 				   .uri("/api/v1/usuarios")
 				   .contentType(MediaType.APPLICATION_JSON)
-				   .bodyValue( new UsuarioCreatedDto("tody@email.com", "123456789$")) // password > 8 caracteres
+				   .bodyValue( new UsuarioCreateDto("tody@email.com", "123456789$")) // password > 8 caracteres
 				   .exchange()
 				   .expectStatus().isEqualTo(422)
 				   .expectBody( ErrorMessage.class)
@@ -133,7 +133,7 @@ public class UsuarioIT {
 		   .post()
 		   .uri("/api/v1/usuarios")
 		   .contentType(MediaType.APPLICATION_JSON)
-		   .bodyValue( new UsuarioCreatedDto("ana@gmail.com", "123456"))
+		   .bodyValue( new UsuarioCreateDto("ana@gmail.com", "123456"))
 		   .exchange()
 		   .expectStatus().isEqualTo(409)
 		   .expectBody( ErrorMessage.class)

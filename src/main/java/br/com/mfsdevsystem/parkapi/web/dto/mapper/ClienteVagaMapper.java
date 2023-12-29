@@ -10,7 +10,7 @@ import br.com.mfsdevsystem.parkapi.entity.ClienteVaga;
 import br.com.mfsdevsystem.parkapi.web.dto.EstacionamentoCreateDto;
 import br.com.mfsdevsystem.parkapi.web.dto.EstacionamentoResponseDto;
 
-public class ClienteVagaMaper {
+public class ClienteVagaMapper {
 
 	public static ClienteVaga toClienteVaga( EstacionamentoCreateDto dto ) {
 		ModelMapper modelMapper = new ModelMapper();

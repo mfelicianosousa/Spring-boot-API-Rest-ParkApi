@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+
 public class EstacionamentoCreateDto {
 
 	   @NotBlank
@@ -15,8 +16,10 @@ public class EstacionamentoCreateDto {
 	   
 	   @NotBlank
 	    private String marca;
+	   
 	   @NotBlank
 	    private String modelo;
+	   
 	   @NotBlank
 	    private String cor;
 	   
@@ -24,22 +27,67 @@ public class EstacionamentoCreateDto {
 	   @Size(min=11, max=11)
 	   @CPF
 	   private String clienteCpf;
+	   
+	   
 		
-	   public EstacionamentoCreateDto() {
-	   }
+	 public EstacionamentoCreateDto() {
+	  }
 	  
+	 
 	public EstacionamentoCreateDto(
-			@NotBlank @Size(min = 8, max = 8) @Pattern(regexp = "[A-Z]{3}-[0-9]{4}", message = "A placa do veiculo deve seguir o padrão 'XXX-0000'") String placa,
-			@NotBlank String marca, @NotBlank String modelo, @NotBlank String cor,
-			@NotBlank @Size(min = 11, max = 11) @CPF String clienteCpf) {
+			String placa,String	 marca, String modelo, String cor, String clienteCpf) {
 		this.placa = placa;
 		this.marca = marca;
 		this.modelo = modelo;
 		this.cor = cor;
 		this.clienteCpf = clienteCpf;
 	}
+	
+	 public static Builder builder() {
+	        return new Builder();
+	    }
+	 
+	 public static class Builder {
+		 
+	        private EstacionamentoCreateDto estacionamentoCreateDto;
 
+	        private Builder() {
+	            estacionamentoCreateDto = new EstacionamentoCreateDto();
+	        }
 
+	        public Builder withPlaca(String placa) {
+	            estacionamentoCreateDto.placa = placa;
+	            return this;
+	        }
+
+	        public Builder withMarca(String marca) {
+	            estacionamentoCreateDto.marca = marca;
+	            return this;
+	        }
+
+	        public Builder withModelo(String modelo) {
+	            estacionamentoCreateDto.modelo = modelo;
+	            return this;
+	        }
+
+	        public Builder withCor(String cor) {
+	            estacionamentoCreateDto.cor = cor;
+	            return this;
+	        }
+
+	        public Builder withClienteCpf(String clienteCpf) {
+	            estacionamentoCreateDto.clienteCpf = clienteCpf;
+	            return this;
+	        }
+
+	        public EstacionamentoCreateDto build() {
+	            return estacionamentoCreateDto;
+	        }
+	 }
+	
+	 public EstacionamentoCreateDto build() {
+	        return this;
+	 }
 
 	public String getPlaca() {
 		return placa;
